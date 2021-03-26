@@ -6,6 +6,8 @@ This project is a simple Java / Spring API to retrieve search results from the G
  >NOTE: A search returning more than 5 results from the Giphy API will only return five results to the user. A search
 > returning less than five results from the Giphy API will not return any results to the user. 
  
+ A deployed version of this API is available at `https://giphy-search-take-home.herokuapp.com/search/<SEARCH_TERM>`.
+ 
  ## Installation Instructions
  1. Clone the repository
  2. Setup your `.env` file. The `.env.sample` file can be used by removing `.sample` from the end, and inserting your

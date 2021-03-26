@@ -1,0 +1,5 @@
+build
+.dockerignore
+.env
+Dockerfile
+Dockerfile.prod

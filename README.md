@@ -1,10 +1,9 @@
 # Getting Started with the Giphy Search API
 
-This project is a simple Java / Spring API to retrieve search results from the Giphy API and return a maximum of five
- results to the user. It was built to fulfill the requirements of a take home assignment for a potential employer.
+This project is a simple Java / Spring API to retrieve search results from the Giphy API. It was built to fulfill the requirements of a take home assignment for a potential employer.
  
- >NOTE: A search returning more than 5 results from the Giphy API will only return five results to the user. A search
-> returning less than five results from the Giphy API will not return any results to the user. 
+ >NOTE: Per the assignment requirements, a search returning more than 5 results from the Giphy API will only return five
+> results to the user. A search returning less than five results from the Giphy API will not return any results to the user. 
  
  A deployed version of this API is available at `https://giphy-search-take-home.herokuapp.com/search/<SEARCH_TERM>`.
  
@@ -14,9 +13,9 @@ This project is a simple Java / Spring API to retrieve search results from the G
   own `GIPHY_API_KEY`. The server will not run unless the `GIPHY_KEY` environmental variable is present in the root
    directory of the project, and contains a valid API key. A valid API key is not included in this repository.
     >Visit the Giphy Developers [page](https://developers.giphy.com) to create an API key.
- 3. Compile the .jar file. Note: Docker requires the .jar file to be located in `/target`. 
+ 3. Compile the `.jar` file. Note: Docker requires the `.jar` file to be located in `/target`. 
  4. To launch the project via Docker, run `docker-compose up` from the root directory of the project.
- 5. The API is available at http://localhost:8080/search/<SEARCH_TERM>
+ 5. The `/search` endpoint will be accessible at http://localhost:8080/search/<SEARCH_TERM>
 
 ## Automated Testing Instructions
 A Postman collection file (Giphy Search Endpoint Tests.postman.json) is included with the repository. This collection
@@ -24,8 +23,7 @@ A Postman collection file (Giphy Search Endpoint Tests.postman.json) is included
   importing collections into Postman is available from the Postman [website](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
  
  The full suite of tests can be initiated by selecting the included JSON file in the Collection Runner, and clicking
-  the `Start Run` button. More information is available from the Postman [website](https://learning.postman.com/docs
-  /running-collections/working-with-data-files/).
+  the `Start Run` button. More information is available from the Postman [website](https://learning.postman.com/docs/running-collections/working-with-data-files/).
   
   After running the tests, you will see a screen similar to this if all tests have passed. 
   ![Postman Testing Example](/images/Postman_Testing_Screen_Shot.png)
@@ -33,8 +31,8 @@ A Postman collection file (Giphy Search Endpoint Tests.postman.json) is included
 ## Lessons Learned
 1. How to retrieve data from an external API via a Java backend.
 
-    This was my first time needing to retrieve data from an external API via a Java backend. While most of the code and
- project structure was very similar building a regular API endpoint, I did not initially structure the models
+    This was my first time retrieving data from an external API via a Java backend. While most of the code and
+ project structure was very similar to a regular API endpoint, I did not initially structure the models
   correctly to accommodate the structure of the JSON response object from the Giphy API. To illustrate, this is
    an example response from the Giphy API.
 ```
@@ -258,9 +256,9 @@ A Postman collection file (Giphy Search Endpoint Tests.postman.json) is included
 ```  
 
    My initial model attempted to jump straight to `id` and `url` (the only two fields returned to the user), without
- first building the `Data` object to hold each search result returned from the Giphy API. Once the correct structure
-  was in place (SearchTermResult => Data) that matched the structure of the data coming from Giphy, it was much
-   easier tweak the shape of the object returned to the user.
+ first building the `Data` object to hold each search result returned from the Giphy API. Once the structure
+of my models matched the structure of the data coming from Giphy (SearchTermResult -> Data), it was much easier tweak
+ the shape of the object returned to the user.
 ```
 {
     "data": [
@@ -272,10 +270,11 @@ A Postman collection file (Giphy Search Endpoint Tests.postman.json) is included
 }
 ```
     
-2. How to controls the key names and property order in a JSON object.
+2. How to control the key names and property order in a JSON object sent to the user.
 
     The original data returned from the Giphy API included the key `id`, however, the data returned to the user needed to
- be `gif_id`. By adding `@JsonAlias("id")` I was able to map this field to the correct field in the Data model.
+ be `gif_id`. By adding `@JsonAlias("id")` I was able to map this field to the correct field in the Data model
+ . Adding `@JsonPropertyOrder({"gif_id", "url"})` allowed me to control the shape of the object returned to the user.
 
 3. How to use Postman for automated API testing.
 
@@ -284,14 +283,15 @@ A Postman collection file (Giphy Search Endpoint Tests.postman.json) is included
   search results, and setup the entire package to be fully automated. This was the first time I've used Postman for
    automated API testing, but I will definitely be adding this tool to my testing regime going forward.
 
-4. How to Dockerize a Java/Spring application, and pass the environmental variable to the image during the build
+4. How to Dockerize a Java / Spring application, and pass environmental variables to the image during the build
  process.
  
-    This was the first time I have Dockerized a Java/Spring application, and only my second time ever Dockerizing
-     an application. After getting the Dockerfile setup and attempting to launch the application, it would not launch
-     . Docker desktop only said `EXITED(0)`. I've learned from previous experience, that generally means the
-      application can't find the correct environmental variables its looking for. After a bunch of Googling, I
-       discovered the best way to pass the environmental variable to the image is by including it in a docker-compose file, using the following syntax.  
+    This was the first time I have Dockerized a Java / Spring application, and only my second time ever Dockerizing
+     an application. After getting the Dockerfile setup and attempting to launch the application, it would not launch. Docker desktop only said `EXITED(0)`. I've learned from previous experience, that generally means the
+      application can't find the correct environmental variables necessary to launch the application. After a bunch of
+       Googling, I
+       discovered the best way to pass environmental variables to the image is by including them in a docker-compose
+        file, using the following syntax.  
        
        
        environment:

@@ -19,6 +19,7 @@ This project is a simple Java / Spring API to retrieve search results from the G
  3. Compile the `.jar` file. Note: Docker requires the `.jar` file to be located in `/target`. 
  4. To launch the project via Docker, run `docker-compose up` from the root directory of the project.
  5. The `/search` endpoint will be accessible at `http://localhost:8080/search/<SEARCH_TERM>`.
+ 6. To stop the server, run `docker-compose down`.
 
 ## Automated Testing Instructions
 A Postman collection file (Giphy_Search_Endpoint_Tests) is included with the repository. This collection

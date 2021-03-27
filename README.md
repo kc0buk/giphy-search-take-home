@@ -14,7 +14,7 @@ This project is a simple Java / Spring API to retrieve search results from the G
   own `GIPHY_API_KEY`. The server will not run unless the `GIPHY_KEY` environmental variable is present in the root
    directory of the project, and contains a valid API key. A valid API key is not included in this repository.
     >Visit the Giphy Developers [page](https://developers.giphy.com) to create an API key.
- 3. Run `mvn package` via the command line from the root directory of the project. 
+ 3. Compile the .jar file. Note: Docker requires the .jar file to be located in `/target`. 
  4. To launch the project via Docker, run `docker-compose up` from the root directory of the project.
  5. The API is available at http://localhost:8080/search/<SEARCH_TERM>
 
